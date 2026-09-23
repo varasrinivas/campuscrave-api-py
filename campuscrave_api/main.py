@@ -7,7 +7,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from campuscrave_api.api import menu, rush_meter, wallet
+from campuscrave_api.api import admin, menu, orders, rush_meter, wallet
 from campuscrave_api.db.bootstrap import prepare_database
 from campuscrave_api.errors import install_error_handlers
 from campuscrave_api.settings import get_settings
@@ -46,7 +46,7 @@ def create_app() -> FastAPI:
     )
     install_error_handlers(app)
 
-    for module in (menu, wallet, rush_meter):
+    for module in (menu, orders, wallet, rush_meter, admin):
         app.include_router(module.router)
     return app
 
