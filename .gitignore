@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# The dev database is rebuilt from the Day-1 menu on every boot.
+var/
+*.db
+*.db-wal
+*.db-shm
+
+*.log
+!incident/logs/*.log
+
+.idea/
+.vscode/
+
+.DS_Store
+Thumbs.db

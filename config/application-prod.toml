@@ -1,0 +1,13 @@
+# Production profile — Postgres. Not wired to a real database yet;
+# set DATABASE_URL when the campus gets a server.
+# Selected with CAMPUSCRAVE_PROFILE=prod. Needs: uv sync --extra prod
+
+[database]
+url = "postgresql+psycopg://campuscrave@localhost:5432/campuscrave"
+fresh_on_start = false
+
+[seed]
+mode = "never"
+
+[logging]
+level = "WARNING"

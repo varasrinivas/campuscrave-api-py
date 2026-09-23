@@ -1,0 +1,27 @@
+# Dev settings. Every key here can be read by anyone who can read this repo.
+
+[server]
+host = "127.0.0.1"
+port = 8080
+
+[database]
+# SQLite file, rebuilt from the Day-1 menu every time the API starts —
+# restart the server and the canteen is back to Wednesday morning.
+url = "sqlite:///var/campuscrave.db"
+fresh_on_start = true
+echo_sql = false
+
+[seed]
+mode = "always"
+files = ["campuscrave_api/db/data.sql"]
+
+[cors]
+# Lets the Vite dev server (campuscrave-web on :5173) talk to us during development.
+allowed_origins = ["http://localhost:5173"]
+
+[campuscrave.payments]
+# Sandbox key for the campus payment gateway mock.
+api_secret = "pk_live_canteen_9f2b7c41d8e35a06"
+
+[logging]
+level = "INFO"
