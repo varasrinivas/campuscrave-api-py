@@ -1,0 +1,27 @@
+# CLAUDE.md — campuscrave-api
+<!-- This is the finished version, written together in Episode 13.      -->
+<!-- If you're reading it before EP13: close it. Writing your own is the lab. -->
+
+FastAPI / SQLAlchemy 2 / Python 3.12 canteen-ordering API for the CampusCrave app. Managed with uv.
+
+## Commands
+- Run: `uv run campuscrave` (SQLite at `var/campuscrave.db`, rebuilt every boot; menu at :8080/api/menu, docs at /docs)
+- Test: `uv run pytest`
+- Single test: `uv run pytest tests/test_happy_path.py::test_a_student_can_place_an_order_and_gets_a_token`
+
+## Architecture
+- Layered: `api → services → repositories → models`; request/response shapes are Pydantic models in `schemas/`.
+- Alembic owns the schema (`migrations/versions`); `campuscrave_api/db/data.sql` seeds the Day-1 menu. Never edit 0001 — add 0002.
+- One `canteen_config` row (id=1) overrides the defaults in `config/business_rules.py`.
+- All canteen times are IST. `ZoneInfo("Asia/Kolkata")`, never the server's local clock.
+- Python names are snake_case; JSON on the wire is camelCase (`CamelModel` does the conversion).
+
+## Conventions
+- Money is whole rupees, `int`, never float.
+- Business rules are named constants in `business_rules` — refer to them by name in code and conversation (`MAX_ACTIVE_ORDERS`, `ORDER_CUTOFF`).
+- Errors: raise a subclass of `errors.ApiError`; the handler shapes the response. Don't return error dicts from routes.
+- Order status values are API contract with campuscrave-web — renaming one is a cross-repo change.
+
+## Warnings
+- This is a teaching repo with planted bugs. Do not "fix" something just because you noticed it — check whether it's part of a lab first (`hints/repro/`).
+- Tests are happy-path only by design. Green tests do not mean the canteen works.

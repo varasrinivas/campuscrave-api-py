@@ -1,0 +1,5 @@
+BUG-07 — no script needed.
+
+Read config/application.toml slowly, top to bottom,
+and ask yourself: if this file were pushed to a public repo today,
+what would you have to rotate tomorrow?

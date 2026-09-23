@@ -1,0 +1,29 @@
+2026-11-14T19:32:04.118 INFO  campuscrave_api.services.order_service : Order 2214 placed by student 87 — token 511
+2026-11-14T19:32:09.402 INFO  campuscrave_api.services.order_service : Order 2215 placed by student 12 — token 512
+2026-11-14T19:32:12.876 INFO  campuscrave_api.services.order_service : Order 2216 placed by student 203 — token 513
+2026-11-14T19:32:19.033 INFO  campuscrave_api.services.order_service : Order 2217 placed by student 44 — token 514
+2026-11-14T19:33:41.220 INFO  campuscrave_api.services.order_service : Order 2226 cancelled, Rs.60 refunded
+2026-11-14T19:34:02.660 INFO  campuscrave_api.services.order_service : Order 2227 placed by student 155 — token 524
+2026-11-14T19:40:12.551 INFO  campuscrave_api.services.admin_service : Stock for Paneer Roll set from 3 to 40
+2026-11-14T19:40:31.007 INFO  campuscrave_api.services.order_service : Order 2261 placed by student 71 — token 558
+2026-11-14T19:40:44.913 INFO  campuscrave_api.services.order_service : Order 2262 cancelled, Rs.45 refunded
+2026-11-14T19:41:02.348 INFO  campuscrave_api.services.order_service : Order 2263 placed by student 19 — token 559
+2026-11-14T19:41:15.777 WARNING campuscrave_api.errors : 409 CONFLICT — Masala Dosa just sold out
+2026-11-14T19:41:16.021 WARNING campuscrave_api.errors : 409 CONFLICT — Masala Dosa just sold out
+2026-11-14T19:41:38.590 INFO  campuscrave_api.services.order_service : Order 2264 cancelled, Rs.50 refunded
+2026-11-14T19:42:20.114 INFO  campuscrave_api.services.order_service : Order 2265 cancelled, Rs.90 refunded
+2026-11-14T19:43:07.882 WARNING campuscrave_api.errors : 409 CONFLICT — Veg Thali just sold out
+2026-11-14T19:44:11.239 INFO  campuscrave_api.services.order_service : Order 2266 cancelled, Rs.70 refunded
+2026-11-14T19:44:59.410 WARNING campuscrave_api.errors : 409 CONFLICT — Chai + Samosa just sold out
+2026-11-14T19:45:23.001 INFO  campuscrave_api.services.admin_service : Stock for Masala Dosa set from 0 to 25
+2026-11-14T19:46:40.756 WARNING campuscrave_api.errors : 409 CONFLICT — Paneer Roll just sold out
+2026-11-14T19:47:55.128 INFO  campuscrave_api.services.order_service : Order 2267 cancelled, Rs.25 refunded
+2026-11-14T19:49:31.664 WARNING campuscrave_api.errors : 409 CONFLICT — Vada Pav (2 pc) just sold out
+2026-11-14T19:51:02.933 ERROR campuscrave_api.errors : Unhandled failure serving request
+Traceback (most recent call last):
+  File "/srv/campuscrave-api/campuscrave_api/api/orders.py", line 15, in place
+    return OrderService(session).create_order(request)
+  File "/srv/campuscrave-api/campuscrave_api/services/order_service.py", line 79, in create_order
+    remaining_stock = dish.stock
+                      ^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'stock'
