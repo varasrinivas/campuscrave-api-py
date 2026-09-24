@@ -19,21 +19,19 @@ class WalletService:
         return WalletView(student_id=student_id, balance_rupees=wallet.balance_rupees)
 
     def top_up(self, student_id: int, amount_rupees: int) -> WalletView:
-        wallet = self._load(student_id)
+        self._load(student_id)
         self.payments.authorise(student_id, amount_rupees)
-        wallet.credit(amount_rupees)
-        self.wallet_repository.save(wallet)
-        return WalletView(student_id=student_id, balance_rupees=wallet.balance_rupees)
+        self.wallet_repository.credit(student_id, amount_rupees)
+        return WalletView(student_id=student_id, balance_rupees=self._load(student_id).balance_rupees)
 
     def debit(self, student_id: int, amount_rupees: int) -> None:
-        wallet = self._load(student_id)
-        wallet.debit(amount_rupees)
-        self.wallet_repository.save(wallet)
+        self._load(student_id)
+        if not self.wallet_repository.debit(student_id, amount_rupees):
+            raise ValueError("Wallet balance too low")
 
     def refund(self, student_id: int, amount_rupees: int) -> None:
-        wallet = self._load(student_id)
-        wallet.credit(amount_rupees)
-        self.wallet_repository.save(wallet)
+        self._load(student_id)
+        self.wallet_repository.credit(student_id, amount_rupees)
 
     def _load(self, student_id: int) -> Wallet:
         wallet = self.wallet_repository.find_by_student_id(student_id)

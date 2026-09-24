@@ -17,12 +17,5 @@ class Wallet(Base):
     student_id: Mapped[int] = mapped_column(ForeignKey("students.id"), unique=True)
     student: Mapped[Student] = relationship()
 
+    # Money moves through WalletRepository.debit / credit — one guarded statement each.
     balance_rupees: Mapped[int] = mapped_column(default=0)
-
-    def debit(self, rupees: int) -> None:
-        if rupees > self.balance_rupees:
-            raise ValueError("Wallet balance too low")
-        self.balance_rupees -= rupees
-
-    def credit(self, rupees: int) -> None:
-        self.balance_rupees += rupees
